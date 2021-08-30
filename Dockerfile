@@ -31,3 +31,6 @@ RUN apt-get install -y python3-pip build-essential libssl-dev libffi-dev \
 	python3-dev cargo
 RUN pip3 install cffi
 RUN pip3 install ansible pyrax paramiko
+
+# Install additional apps
+RUN apt-get install -y rsync
