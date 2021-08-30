@@ -3,10 +3,16 @@
 # Use PHP as starting place
 FROM php:7.0.33
 
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Install Node@6
 # https://stackoverflow.com/a/39081818/59160
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 	&& apt-get install -y nodejs
+
+# Install Yarn
+RUN npm install -g yarn
 
 # Install Python@3 and deps. I found I had to break up the pip installs into
 # multiple stages to get the deps to resolve properly. All those apt-get deps
