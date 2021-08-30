@@ -3,6 +3,15 @@
 # Use PHP as starting place
 FROM php:7.0.33
 
+# Update linux deps
+RUN apt-get update -y
+
+# Add more PHP extensions
+# https://stackoverflow.com/a/48700777/59160
+RUN apt-get update && apt-get install -y libzip-dev zip \
+	&& docker-php-ext-configure zip --with-libzip \
+	&& docker-php-ext-install zip
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -18,7 +27,6 @@ RUN npm install -g yarn
 # multiple stages to get the deps to resolve properly. All those apt-get deps
 # mostly come from the requirements of the Cryptography package:
 # https://cryptography.io/en/latest/installation/#debian-ubuntu
-RUN apt-get update -y
 RUN apt-get install -y python3-pip build-essential libssl-dev libffi-dev \
 	python3-dev cargo
 RUN pip3 install cffi
