@@ -5,8 +5,8 @@ FROM php:7.0.33
 
 # Fix an UnicodeEncodeError
 # https://github.com/pypa/pip/issues/10219#issuecomment-887337037
-# ENV LANG C.UTF-8
-# ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 # Update linux deps
 RUN apt-get update -y
@@ -33,9 +33,9 @@ RUN npm install -g yarn
 # mostly come from the requirements of the Cryptography package:
 # https://cryptography.io/en/latest/installation/#debian-ubuntu
 RUN apt-get install -y build-essential libssl-dev libffi-dev \
-	python python-pip cargo
-RUN pip install cffi pbr wrapt==1.12.1
-RUN pip install ansible pyrax paramiko
+	python3-dev python3-pip cargo
+RUN pip3 install cffi pbr wrapt==1.12.1
+RUN pip3 install ansible pyrax paramiko
 
 # Install additional apps
 RUN apt-get install -y rsync
